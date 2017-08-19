@@ -8,7 +8,7 @@ public class MapGenerator : MonoBehaviour
     public Transform tilePrefab;
 
     // A Vector2 for the size of the floor
-    public Vector2 mapSize;
+    public Vector3 mapSize;
 
     // Do you want to have a small gap between the tiles ?
     [Range(0, 1)]
@@ -24,7 +24,11 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = 0; y < mapSize.y; y++)
             {
-                allTiledCoords.Add(new Coord(x, y));
+                for (int z = 0; z < mapSize.z; z++)
+                {
+                    allTiledCoords.Add(new Coord(x, y, z));
+                }
+
 
             }
         }
@@ -52,37 +56,39 @@ public class MapGenerator : MonoBehaviour
 
             for (int y = 0; y < mapSize.y; y++)
             {
-                //	Calculate the position of the new tile.
-                Vector3 tilePosition = CoordToWorldPosition(x, y);
-                Transform newTile = Instantiate(tilePrefab, tilePosition * 2f, Quaternion.Euler(Vector3.right * -90)) as Transform;//Quaternion.Euler(Vector3.right * 90)
-                newTile.localScale = new Vector3(2f, 2f, 2f) * (1 - outlinePercent);
-                // Rename it, so we can be aware of which block we are standing at.!
-                newTile.gameObject.name = "Block " + x + " " + y;
-                // and make them ALL children of the FloorHandler we created before ^^.
-                newTile.parent = mapHolder;
-
-
-
+                for (int z = 0; z < mapSize.z; z++)
+                {
+                    //	Calculate the position of the new tile.
+                    Vector3 tilePosition = CoordToWorldPosition(x, y, z);
+                    Transform newTile = Instantiate(tilePrefab, tilePosition * 2f, Quaternion.Euler(Vector3.right * -90)) as Transform;//Quaternion.Euler(Vector3.right * 90)
+                    newTile.localScale = new Vector3(2f, 2f, 2f) * (1 - outlinePercent);
+                    // Rename it, so we can be aware of which block we are standing at.!
+                    newTile.gameObject.name = "Block " + x + " " + y + " " + z;
+                    // and make them ALL children of the FloorHandler we created before ^^.
+                    newTile.parent = mapHolder;
+                }
             }
 
         }
 
     }
 
-    Vector3 CoordToWorldPosition(int x, int y)
+    Vector3 CoordToWorldPosition(int x, int y, int z)
     {
-        return new Vector3(-mapSize.x / 2 + 0.5f + x, 0f, -mapSize.y / 2 + 0.5f + y);
+        return new Vector3(-mapSize.x / 2 + 0.5f + x, -mapSize.y / 2 + 0.5f + y, -mapSize.z / 2 + 0.5f + z);
     }
 
     public struct Coord
     {
         public int x;
         public int y;
+        public int z;
 
-        public Coord(int _x, int _y)
+        public Coord(int _x, int _y, int _z)
         {
             x = _x;
             y = _y;
+            z = _z;
         }
 
     }
