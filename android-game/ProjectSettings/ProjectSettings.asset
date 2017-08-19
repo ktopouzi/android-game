@@ -588,7 +588,7 @@ PlayerSettings:
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: 935d41ea-0cae-4d76-909e-94d633a25baf
-  projectName: android-game (1)
+  projectName: android-game
   organizationId: kimon-topouzidis
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
