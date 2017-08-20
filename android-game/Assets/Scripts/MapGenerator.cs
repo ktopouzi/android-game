@@ -51,12 +51,11 @@ public class MapGenerator : MonoBehaviour
 
         mapHolder.parent = transform;
 
-        for (int x = 0; x < mapSize.x; x++)
+        for (int y = 0; y < mapSize.y; y++)
         {
-
-            for (int y = 0; y < mapSize.y; y++)
+            for (int z = 0; z < mapSize.z; z++)
             {
-                for (int z = 0; z < mapSize.z; z++)
+                for (int x = 0; x < mapSize.x; x++)
                 {
                     //	Calculate the position of the new tile.
                     Vector3 tilePosition = CoordToWorldPosition(x, y, z);
@@ -70,7 +69,6 @@ public class MapGenerator : MonoBehaviour
             }
 
         }
-
     }
 
     Vector3 CoordToWorldPosition(int x, int y, int z)
