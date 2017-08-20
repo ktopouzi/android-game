@@ -6,6 +6,7 @@ public class MapGenerator : MonoBehaviour
 {
     //	The prefab used for the floor of the level
     public Transform tilePrefab;
+    public float ScaleModifier = 1;
 
     // A Vector2 for the size of the floor
     public Vector3 mapSize;
@@ -59,8 +60,8 @@ public class MapGenerator : MonoBehaviour
                 {
                     //	Calculate the position of the new tile.
                     Vector3 tilePosition = CoordToWorldPosition(x, y, z);
-                    Transform newTile = Instantiate(tilePrefab, tilePosition * 2f, Quaternion.Euler(Vector3.right * -90)) as Transform;//Quaternion.Euler(Vector3.right * 90)
-                    newTile.localScale = new Vector3(2f, 2f, 2f) * (1 - outlinePercent);
+                    Transform newTile = Instantiate(tilePrefab, tilePosition * ScaleModifier, Quaternion.Euler(Vector3.right * -90)) as Transform;//Quaternion.Euler(Vector3.right * 90)
+                    newTile.localScale = new Vector3(ScaleModifier, ScaleModifier, ScaleModifier) * (1 - outlinePercent);
                     // Rename it, so we can be aware of which block we are standing at.!
                     newTile.gameObject.name = "Block " + x + " " + y + " " + z;
                     // and make them ALL children of the FloorHandler we created before ^^.
@@ -75,19 +76,17 @@ public class MapGenerator : MonoBehaviour
     {
         return new Vector3(-mapSize.x / 2 + 0.5f + x, -mapSize.y / 2 + 0.5f + y, -mapSize.z / 2 + 0.5f + z);
     }
+}
+public struct Coord
+{
+    public int x;
+    public int y;
+    public int z;
 
-    public struct Coord
+    public Coord(int _x, int _y, int _z)
     {
-        public int x;
-        public int y;
-        public int z;
-
-        public Coord(int _x, int _y, int _z)
-        {
-            x = _x;
-            y = _y;
-            z = _z;
-        }
-
+        x = _x;
+        y = _y;
+        z = _z;
     }
 }

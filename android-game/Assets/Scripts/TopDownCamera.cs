@@ -77,7 +77,6 @@ public class TopDownCamera : MonoBehaviour
     Vector3 camVelocity = Vector3.zero;
     Vector3 currentMousePosition = Vector3.zero;
     Vector3 adjustedDestination = Vector3.zero;
-    Vector3 camVel = Vector3.zero;
     Vector3 previousMousePosition = Vector3.zero;
     float mouseOrbitInput, zoomInput;
 
