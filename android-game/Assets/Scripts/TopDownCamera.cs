@@ -128,7 +128,7 @@ public class TopDownCamera : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         //movetotarget
         //lookattarget
