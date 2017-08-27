@@ -17,6 +17,17 @@ public class MapGenerator : MonoBehaviour
 
     List<Coord> allTiledCoords;
     Queue<Coord> shuffledTileCoords;
+
+    void Start()
+    {
+
+        //Call the "DeleteBlock" method, after 1 second the game has begun, and keep calling it every 1 second! THE DOOM IS NEAR!
+        InvokeRepeating("DeleteBlock", 1, 3.3f);
+        //Create a map that we can PLAY!!!
+        GenerateMap();
+
+    }
+
     public void GenerateMap()
     {
 
@@ -72,9 +83,29 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    public Coord GetRngCoord()
+    {
+        Coord randomCoord = shuffledTileCoords.Dequeue();
+        shuffledTileCoords.Enqueue(randomCoord);
+        return randomCoord;
+    }
+
     Vector3 CoordToWorldPosition(int x, int y, int z)
     {
         return new Vector3(-mapSize.x / 2 + 0.5f + x, -mapSize.y / 2 + 0.5f + y, -mapSize.z / 2 + 0.5f + z);
+    }
+
+    void DeleteBlock()
+    {
+
+        Coord randomCoord = GetRngCoord();
+        //Vector3 deleteTerrainPosition = CoordToWorldPosition(randomCoord.x, randomCoord.y);
+        // Debug.Log(randomCoord.x.ToString() + " " + randomCoord.y.ToString());
+
+        GameObject deleteOne = GameObject.Find("Block " + randomCoord.x.ToString() + " " + randomCoord.y.ToString() + " " + randomCoord.z.ToString());
+       StartCoroutine(deleteOne.GetComponent<TriangleExplosion>().SplitMesh(true));
+
+
     }
 }
 public struct Coord

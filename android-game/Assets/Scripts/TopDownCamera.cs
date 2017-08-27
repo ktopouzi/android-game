@@ -113,7 +113,7 @@ public class TopDownCamera : MonoBehaviour
     void GetInput()
     {
         //filling the values for our input variables
-        mouseOrbitInput = Input.GetAxisRaw(input.MOUSE_ORBIT);
+        //mouseOrbitInput = Input.GetAxisRaw(input.MOUSE_ORBIT);
         zoomInput = Input.GetAxisRaw(input.ZOOM);
     }
 
